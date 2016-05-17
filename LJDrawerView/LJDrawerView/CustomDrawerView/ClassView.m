@@ -11,7 +11,6 @@
 
 @interface ClassView()<UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UITableView *classTable;
 
 @end
 

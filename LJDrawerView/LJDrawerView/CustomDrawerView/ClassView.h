@@ -14,5 +14,7 @@
 @interface ClassView : UIView
 
 @property (nonatomic, strong) NSMutableArray *indexArray;
+@property (nonatomic, strong) UITableView *classTable;
+
 
 @end

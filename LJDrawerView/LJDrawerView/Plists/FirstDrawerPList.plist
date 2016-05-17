@@ -22,5 +22,9 @@
 		<key>name</key>
 		<string>收到过</string>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>全部</string>
+	</dict>
 </array>
 </plist>

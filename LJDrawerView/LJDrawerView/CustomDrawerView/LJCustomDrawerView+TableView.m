@@ -11,9 +11,6 @@
 @interface LJCustomDrawerView_TableView ()<UITableViewDataSource, UITableViewDelegate>
 
 {
-    /** 选中行Row */
-    NSInteger _selectedRow;
-    
     CGFloat _popTableViewHeight;
 }
 
@@ -25,6 +22,7 @@
 @implementation LJCustomDrawerView_TableView
 
 @synthesize showPopTable = _showPopTable;
+@synthesize selectedIndexPath = _selectedIndexPath;
 
 static NSString * const customDrawerCellId = @"customDrawerCell";
 
@@ -33,7 +31,6 @@ static NSString * const customDrawerCellId = @"customDrawerCell";
     self = [super initWithFrame:frame];
     if (self) {
         /** 默认选中第一行 */
-        _selectedRow = -1;
         self.backgroundColor = RGBAColor(0, 0, 0, 0.4);
         
         self.drawerArray = [NSMutableArray arrayWithArray:array];
@@ -56,7 +53,7 @@ static NSString * const customDrawerCellId = @"customDrawerCell";
     NSDictionary *dic = [_drawerArray objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@", [dic objectForKey:@"name"]];
     
-    if (indexPath.row == _selectedRow) {
+    if (indexPath == _selectedIndexPath) {
         cell.imageView.image = [UIImage imageNamed:@"customCheck"];
         cell.textLabel.textColor = GreenColor;
     } else {
@@ -69,8 +66,8 @@ static NSString * const customDrawerCellId = @"customDrawerCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row != _selectedRow) {
-        _selectedRow = indexPath.row;
+    if (indexPath != _selectedIndexPath) {
+        _selectedIndexPath = indexPath;
         
         /** 将选中下标传回前台页面 */
         if (self.delegate && [self.delegate respondsToSelector:@selector(CustomDrawerViewSelectedForwardBinWithIndex:)]) {
@@ -111,6 +108,15 @@ static NSString * const customDrawerCellId = @"customDrawerCell";
 
 - (BOOL)showPopTable {
     return _showPopTable;
+}
+
+- (void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath {
+    _selectedIndexPath = selectedIndexPath;
+    [self tableView:_drawerTable didSelectRowAtIndexPath:_selectedIndexPath];
+}
+
+- (NSIndexPath *)selectedIndexPath {
+    return _selectedIndexPath;
 }
 
 #pragma mark - LayoutUIs

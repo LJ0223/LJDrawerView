@@ -114,7 +114,8 @@ static NSString * const customDrawerCellId = @"customDrawerCell";
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         [UIView animateWithDuration:EF_DURATIONTIME animations:^{
             weakSelf.drawerTable.frame = CGRectMake(0, 0, TABLEWIDTH, _popTableViewHeight);
-            weakSelf.classView.frame = CGRectMake(_drawerTable.frame.size.width, 0,  WIDTH-TABLEWIDTH, _drawerTable.frame.size.height);
+            weakSelf.classView.frame = CGRectMake(weakSelf.drawerTable.frame.size.width, 0,  WIDTH-TABLEWIDTH, weakSelf.drawerTable.frame.size.height);
+            weakSelf.classView.classTable.frame = CGRectMake(0, 0, weakSelf.classView.frame.size.width, weakSelf.classView.frame.size.height);
             weakSelf.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
         } completion:^(BOOL finished) {
         }];
@@ -123,7 +124,8 @@ static NSString * const customDrawerCellId = @"customDrawerCell";
         [UIView animateWithDuration:EF_DURATIONTIME animations:^{
             weakSelf.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
             weakSelf.drawerTable.frame = CGRectMake(0, 0, TABLEWIDTH, 0);
-            weakSelf.classView.frame = CGRectMake(_drawerTable.frame.size.width, 0,  WIDTH-TABLEWIDTH, _drawerTable.frame.size.height);
+            weakSelf.classView.frame = CGRectMake(weakSelf.drawerTable.frame.size.width, 0,  WIDTH-TABLEWIDTH, 0);
+            weakSelf.classView.classTable.frame = CGRectMake(0, 0, weakSelf.classView.frame.size.width, 0);
         } completion:^(BOOL finished) {
             [weakSelf.drawerTable reloadData];
             [weakSelf removeFromSuperview];
@@ -164,7 +166,7 @@ static NSString * const customDrawerCellId = @"customDrawerCell";
 - (ClassView *)classView
 {
     if (!_classView) {
-        _classView = [[ClassView alloc]initWithFrame:CGRectMake(_drawerTable.frame.size.width, 0,  WIDTH-TABLEWIDTH, _drawerTable.frame.size.height)];
+        _classView = [[ClassView alloc]initWithFrame:CGRectMake(_drawerTable.frame.size.width, 0,  WIDTH-TABLEWIDTH, 0)];
         NSMutableArray *array = [[_drawerArray objectAtIndex:0] objectForKey:@"items"];
         _classView.indexArray = array;
         _classView.backgroundColor = [UIColor redColor];

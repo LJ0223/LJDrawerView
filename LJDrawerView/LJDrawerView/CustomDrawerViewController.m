@@ -53,6 +53,15 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"仿美团抽屉弹窗";
+    
+    
+#warning 设置默认选中一栏的代码不能跟显示抽屉弹窗的代码放到一起，要放到显示抽屉代码之前，不然会造成抽屉弹窗不显示
+    if (!_firstDrawerView) {
+        self.firstDrawerView = [[LJCustomDrawerView_TableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_firstBtn.frame), WIDTH, HEIGHT-CGRectGetMaxY(_firstBtn.frame)) andDrawerArray:_firstDrawerArray];
+    }
+    
+    // 默认选中最后一个：全部
+    _firstDrawerView.selectedIndexPath = [NSIndexPath indexPathForItem:_firstDrawerArray.count-1 inSection:0];
 }
 
 - (IBAction)topBtnAction:(UIButton *)sender {
@@ -92,6 +101,7 @@
     
     [self.view.window addSubview:_firstDrawerView];
     self.firstDrawerView.showPopTable = YES;
+    
 }
 
 - (void)showSecondDrawerView {

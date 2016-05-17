@@ -25,6 +25,9 @@
 /** 是否展示弹窗 */
 @property (nonatomic, assign) BOOL showPopTable;
 
+/** 选中行IndexPath */
+@property (nonatomic, assign) NSIndexPath *selectedIndexPath;
+
 /*
  * 初始化折叠抽屉弹窗
  * array：将要展示列表的数组
